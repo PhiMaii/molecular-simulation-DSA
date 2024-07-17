@@ -9,3 +9,4 @@ NUM_BALLS = 3
 
 GRAVITY = 0.1
 
+MAX_FPS = 60
