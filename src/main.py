@@ -5,28 +5,26 @@ import sys
 import random
 
 import particle
-
-# --------------------------------- Constants -------------------------------- #
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-
-NUM_BALLS = 20
-
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+import config
 
 # ------------------------------- Window setup ------------------------------- #
+# Setup of the window: size and description
 pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('Particle Simulation')
 
+# Setup of the FPS counter
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 30)
+
 # ------------------------------ Utility classes ----------------------------- #
+# Funciton for generating a given amount of randomly placed balls
 def generateBalls(num):
-    generated_balls = [particle.Ball(random.randint(50, SCREEN_WIDTH - 50), random.randint(50, SCREEN_HEIGHT - 50), random.randint(5, 25), RED) for _ in range(num)]
+    generated_balls = [particle.Ball(random.randint(50, config.SCREEN_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50), random.randint(5, 25), config.RED) for _ in range(num)]
     return generated_balls
 
 
-balls = generateBalls(NUM_BALLS)
+balls = generateBalls(config.NUM_BALLS)
 
 
 # ---------------------------------------------------------------------------- #
@@ -41,15 +39,26 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 balls.clear()
-                balls.extend(generateBalls(NUM_BALLS)) # append DIDN'T work because only one array is accepted
+                balls.extend(generateBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
 
     # ------------------------------- Update screen ------------------------------ #
-    screen.fill(WHITE)
+    # Erase the screen
+    screen.fill(config.WHITE)
 
+    # Ball position updates and display
     for ball in balls:
+        ball.update()
         ball.draw(screen) 
 
+    # FPS counter display
+    fps = int(clock.get_fps())
+    fps_text = font.render(f"FPS: {fps}", True, config.BLACK)
+    screen.blit(fps_text, (10, 10))
+
     pygame.display.flip()
+
+    # FPS limit
+    clock.tick(config.MAX_FPS)
 
 # -------------------------------- Exit window ------------------------------- #
 pygame.quit()
