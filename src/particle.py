@@ -19,6 +19,9 @@ class Ball:
     def update(self):
         self.vy += config.GRAVITY
 
+        self.vy *= config.FRICTION
+        self.vx *= config.FRICTION
+
         self.xpos += self.vx
         self.ypos += self.vy
 
