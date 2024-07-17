@@ -1,5 +1,6 @@
 # ---------------------------------- Imports --------------------------------- #
 import pygame
+from pygame import Vector2
 
 import sys
 import random
@@ -48,9 +49,7 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                # print("Mouse btn down", mouse_x, mouse_y)
-                print(particle.Ball(mouse_x, mouse_y, random.randint(5, 25), config.BLUE))
-                balls.append(particle.Ball(mouse_x, mouse_y, random.randint(5, 25), config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(), color=config.BLUE))
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
