@@ -43,7 +43,7 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                print("Mouse btn down", mouse_x, mouse_y)
+                # print("Mouse btn down", mouse_x, mouse_y)
                 print(particle.Ball(mouse_x, mouse_y, random.randint(5, 25), config.BLUE))
                 balls.append(particle.Ball(mouse_x, mouse_y, random.randint(5, 25), config.BLUE))
 
