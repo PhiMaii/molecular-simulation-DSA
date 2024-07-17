@@ -14,4 +14,4 @@ NUM_BALLS = 30
 
 # Physics setup
 GRAVITY = 0.2
-FRICTION = 1 - 0.01
+FRICTION = 1 - 0.005
