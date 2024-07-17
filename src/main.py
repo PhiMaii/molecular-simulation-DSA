@@ -18,9 +18,14 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 30)
 
 # ------------------------------ Utility classes ----------------------------- #
-# Funciton for generating a given amount of randomly placed balls
+# Function for generating a given amount of randomly placed balls
 def generateRandomBalls(num):
-    generated_balls = [particle.Ball(random.randint(50, config.SCREEN_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50), random.randint(5, 25), config.RED) for _ in range(num)]
+    generated_balls= []
+    for i in range(num):
+        pos = pygame.Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
+        vel = pygame.Vector2(0)
+        generated_ball = particle.Ball(pos, random.randint(5, 25),vel, config.RED)
+        generated_balls.append(generated_ball)
     return generated_balls
 
 
@@ -65,6 +70,7 @@ while running:
 
     # FPS limit
     clock.tick(config.MAX_FPS)
+    
 
 # -------------------------------- Exit window ------------------------------- #
 pygame.quit()
