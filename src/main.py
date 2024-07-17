@@ -45,7 +45,7 @@ while running:
     # Erase the screen
     screen.fill(config.WHITE)
 
-    # Ball position updates and display
+    # Every ball gets updated and then drawn
     for ball in balls:
         ball.update()
         ball.draw(screen) 
