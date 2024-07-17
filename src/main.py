@@ -23,8 +23,8 @@ font = pygame.font.SysFont(None, 30)
 def generateRandomBalls(num):
     generated_balls= []
     for i in range(num):
-        pos = pygame.Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
-        vel = pygame.Vector2(0)
+        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
+        vel = Vector2(0)
         generated_ball = particle.Ball(pos, random.randint(5, 25),vel, config.RED)
         generated_balls.append(generated_ball)
     return generated_balls
@@ -49,7 +49,7 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(20,5), color=config.BLUE))
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
