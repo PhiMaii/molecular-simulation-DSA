@@ -55,11 +55,11 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 balls.clear()
-                balls.extend(generateTestBalls()) # append DIDN'T work because only one array is accepted
+                balls.extend(generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(20,5), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(80,40), color=config.BLUE))
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
