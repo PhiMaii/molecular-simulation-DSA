@@ -31,6 +31,8 @@ else:
 running = True
 paused = False
 
+last_time = pygame.time.get_ticks()
+
 while running:
     # ------------------------------ Event listeners ----------------------------- #
     for event in pygame.event.get():
@@ -57,12 +59,22 @@ while running:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=50 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+            elif event.button == 3:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
     screen.fill(config.WHITE)
 
-    dt = clock.get_time() / config.TIME_FACTOR
+    # dt = clock.get_time() / config.TIME_FACTOR
+
+    current_time = pygame.time.get_ticks()
+    dt = (current_time - last_time) / config.TIME_FACTOR # Convert milliseconds to seconds
+    last_time = current_time
+
+    # print(dt)
 
     # Iterate through each ball and first update, then check for collisions and then draw it
     for i, ball in enumerate(balls):
