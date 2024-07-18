@@ -5,7 +5,7 @@ import config
 
 
 class Ball:
-    def __init__(self, pos: Vector2, vel: Vector2, radius: int, color: tuple):
+    def __init__(self, pos: Vector2, vel: Vector2, mass: float, radius: int, color: tuple):
         # Initialise class variables
         
         self.radius = radius
@@ -13,6 +13,7 @@ class Ball:
 
         self.pos = pos
         self.vel = vel
+        self.mass = mass
 
     def draw(self, screen):
        # Draw the circle on the screen
@@ -50,4 +51,5 @@ class Ball:
         elif self.pos.y + self.radius > config.SCREEN_HEIGHT:
             self.pos.y = config.SCREEN_HEIGHT - self.radius
             self.vel.y *= -1
+    
 
