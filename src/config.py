@@ -17,6 +17,7 @@ BLUE = (0, 0, 255)
 
 # Particle setup
 NUM_BALLS = 100
+BALL_SIZE_RANGE = [5, 25]
 
 # Physics setup
 GRAVITY = 0.3

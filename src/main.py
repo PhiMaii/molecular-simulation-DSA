@@ -7,6 +7,7 @@ import random
 
 import particle
 import config
+import utils
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
@@ -19,28 +20,10 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 30)
 
 # ------------------------------ Utility classes ----------------------------- #
-# Function for generating a given amount of randomly placed balls
-def generateRandomBalls(num: int):
-    generated_balls= []
-    for i in range(num):
-        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
-        vel = Vector2(0)
-        generated_ball = particle.Ball(pos, vel, random.randint(5, 25), config.RED)
-        generated_balls.append(generated_ball)
-    return generated_balls
-
-# Function to generate two balls heading straight to each other (for debugging purposes)
-def generateTestBalls():
-    generated_balls = [
-        particle.Ball(pos=Vector2(100, 200), vel=Vector2(10, 0), radius=15, color=config.RED),
-        particle.Ball(pos= Vector2(config.SCREEN_WIDTH - 100, 200), vel=Vector2(-10, 0), radius= 15, color=config.GREEN)
-    ]
-    return generated_balls
-
 if config.DEBUG_MODE:
-    balls = generateTestBalls()
+    balls = utils.generateTestBalls()
 else:
-    balls = generateRandomBalls(config.NUM_BALLS)
+    balls = utils.generateRandomBalls(config.NUM_BALLS)
 
 # ---------------------------------------------------------------------------- #
 #                                   Main loop                                  #
@@ -58,14 +41,14 @@ while running:
             if event.key == pygame.K_r:
                 # Delete all balls and generate new ones (random)
                 balls.clear()
-                balls.extend(generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
+                balls.extend(utils.generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
         # Mouse button pressed event
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # Left-click pressed
             if event.button == 1:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(80,40), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(2, 15), vel=Vector2(80,40), color=config.BLUE))
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
