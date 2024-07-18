@@ -25,7 +25,7 @@ def generateRandomBalls(num):
     for i in range(num):
         pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
         vel = Vector2(0)
-        generated_ball = particle.Ball(pos, random.randint(5, 25),vel, config.RED)
+        generated_ball = particle.Ball(pos, vel, random.randint(5, 25), config.RED)
         generated_balls.append(generated_ball)
     return generated_balls
 

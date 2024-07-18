@@ -1,10 +1,11 @@
 import pygame
+from pygame import Vector2
 
 import config
 
 
 class Ball:
-    def __init__(self, pos:pygame.Vector2, radius:int,vel:pygame.Vector2, color:tuple):
+    def __init__(self, pos: Vector2, vel: Vector2, radius: int, color: tuple):
         # Initialise class variables
         
         self.radius = radius
@@ -28,6 +29,9 @@ class Ball:
         # Adding the current velocity to the position of the corresponding axis
         self.pos+=self.vel
 
+        self.checkWallCollision()
+
+    def checkWallCollision(self):
         # Checking for collisions with the window edges and resolving them
         # Left side
         if self.pos.x - self.radius < 0:
