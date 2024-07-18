@@ -7,6 +7,7 @@ import random
 
 import particle
 import config
+import utils
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
@@ -30,8 +31,8 @@ def generateRandomBalls(num):
     return generated_balls
 
 
-balls = generateRandomBalls(config.NUM_BALLS)
-
+balls = [particle.Ball(Vector2(100,100),Vector2(0),10,10,config.RED),particle.Ball(Vector2(200,100),Vector2(0),10,10,config.RED)]
+print(utils.getInteractions(5))
 
 # ---------------------------------------------------------------------------- #
 #                                   Main loop                                  #
