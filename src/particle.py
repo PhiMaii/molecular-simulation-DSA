@@ -53,8 +53,25 @@ class Ball:
             self.pos.y = config.SCREEN_HEIGHT - self.radius
             self.vel.y *= -1
 
-    def collide(self, other, screen):
+    def collide(self, other):
         distance = self.pos.distance_to(other.pos)
         if distance <= self.radius + other.radius:
             print("collision!     ", self , other)
-            
+            # Normal vector
+            normal = (other.pos - self.pos).normalize()
+
+            # Tangential vector
+            tangent = Vector2(-normal.y, normal.x)
+
+            # Decomposing velocities
+            v1n = normal.dot(self.vel)
+            v1t = tangent.dot(self.vel)
+            v2n = normal.dot(other.vel)
+            v2t = tangent.dot(other.vel)
+
+            # Swap normal components
+            v1n, v2n = v2n, v1n
+
+            # Recompose velocities
+            self.vel = v1n * normal + v1t * tangent
+            other.vel = v2n * normal + v2t * tangent

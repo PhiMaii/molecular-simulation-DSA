@@ -65,15 +65,10 @@ while running:
     # Erase the screen
     screen.fill(config.WHITE)
 
-    # Every ball gets updated and then drawn
-    # for ball in balls:
-    #     ball.update()
-    #     ball.draw(screen) 
-
     for i, ball in enumerate(balls):
         ball.update()
         for j in range(i + 1, len(balls)):
-            ball.collide(balls[j], screen)
+            ball.collide(balls[j])
         ball.draw(screen)
 
     # FPS counter display
