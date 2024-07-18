@@ -56,7 +56,8 @@ class Ball:
     def collide(self, other):
         distance = self.pos.distance_to(other.pos)
         if distance <= self.radius + other.radius:
-            print("collision!     ", self , other)
+            # print("collision!     ", self , other)
+            
             # Normal vector
             normal = (other.pos - self.pos).normalize()
 
@@ -75,3 +76,8 @@ class Ball:
             # Recompose velocities
             self.vel = v1n * normal + v1t * tangent
             other.vel = v2n * normal + v2t * tangent
+
+            # Adjust positions to prevent overlap
+            overlap = 0.5 * (self.radius + other.radius - distance + 1)
+            self.pos -= overlap * normal
+            other.pos += overlap * normal

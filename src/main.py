@@ -30,7 +30,7 @@ def generateRandomBalls(num):
     return generated_balls
 
 
-# balls = generateRandomBalls(config.NUM_BALLS)
+balls = generateRandomBalls(config.NUM_BALLS)
 
 
 def generateTestBalls():
@@ -40,7 +40,7 @@ def generateTestBalls():
     ]
     return generated_balls
 
-balls = generateTestBalls()
+# balls = generateTestBalls()
 
 
 # ---------------------------------------------------------------------------- #
