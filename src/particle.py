@@ -16,9 +16,11 @@ class Ball:
         self.vel = vel
 
     def draw(self, screen):
-       # Draw the circle on the screen
-       pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), self.radius) 
-       utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
+        # Draw the circle on the screen
+        pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), self.radius) 
+
+        if config.DEBUG_MODE:
+            utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
 
     def update(self):
         # Adding gravity factor to the y velocity on each update call
@@ -57,7 +59,7 @@ class Ball:
         distance = self.pos.distance_to(other.pos)
         if distance <= self.radius + other.radius:
             # print("collision!     ", self , other)
-            
+
             # Normal vector
             normal = (other.pos - self.pos).normalize()
 
@@ -74,8 +76,8 @@ class Ball:
             v1n, v2n = v2n, v1n
 
             # Recompose velocities
-            self.vel = v1n * normal + v1t * tangent
-            other.vel = v2n * normal + v2t * tangent
+            self.vel = (v1n * normal + v1t * tangent) * config.ELASTICITY
+            other.vel = (v2n * normal + v2t * tangent) * config.ELASTICITY
 
             # Adjust positions to prevent overlap
             overlap = 0.5 * (self.radius + other.radius - distance + 1)
