@@ -43,6 +43,8 @@ class Ball:
         self.vel += self.acc * dt
         self.pos += self.vel * dt
 
+        self.vel *= config.FRICTION
+
         # Reset acceleration after each update
         self.acc = Vector2(0, 0)
 
@@ -86,6 +88,11 @@ class Ball:
         normal = normal.normalize()
         tangent = Vector2(-normal.y, normal.x)
 
+        overlap = self.radius + other.radius - distance
+        if overlap > 0:
+            self.pos -= normal * overlap / 2
+            other.pos += normal * overlap / 2
+
         # Decompose velocities into normal and tangential components
         v1_normal = normal.dot(self.vel)
         v2_normal = normal.dot(other.vel)
@@ -99,5 +106,3 @@ class Ball:
         # Convert scalar normal and tangential velocities into vectors
         self.vel = v1_normal_new * normal + v1_tangent * tangent
         other.vel = v2_normal_new * normal + v2_tangent * tangent
-
-        print(self.vel)
