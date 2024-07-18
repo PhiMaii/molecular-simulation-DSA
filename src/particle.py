@@ -15,7 +15,10 @@ class Ball:
         self.pos = pos
         self.vel = vel
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.surface):
+        """
+        Function that draws the ball on the screen
+        """
         # Draw the circle on the screen
         pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), self.radius) 
 
@@ -23,6 +26,10 @@ class Ball:
             utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
 
     def update(self):
+        """
+        Updates the possition of the ball by adding the current velocity to the 
+        position and adding gravity
+        """
         # Adding gravity factor to the y velocity on each update call
         self.vel.y += config.GRAVITY
 
@@ -36,11 +43,16 @@ class Ball:
         self.checkWallCollision()
 
     def checkWallCollision(self):
+        """
+        Checks for wall collisions and resolves them by multiplying the velocity with -1
+        thus reversing the direction and speed
+        """
         # Checking for collisions with the window edges and resolving them
         # Left side
         if self.pos.x - self.radius < 0:
             self.pos.x = self.radius
             self.vel.x *= -1
+
         # Right side
         elif self.pos.x + self.radius > config.SCREEN_WIDTH:
             self.pos.x = config.SCREEN_WIDTH - self.radius
@@ -50,16 +62,20 @@ class Ball:
         if self.pos.y - self.radius < 0:
             self.pos.y = self.radius
             self.vel.y *= -1
+
         # Bottom side
         elif self.pos.y + self.radius > config.SCREEN_HEIGHT:
             self.pos.y = config.SCREEN_HEIGHT - self.radius
             self.vel.y *= -1
 
-    def collide(self, other):
+    def collide(self, other: 'Ball'):
+        """
+        Checks for collisions between two balls an resolves them by using some vector math. 
+        Moves both balls in opposite directions to prevent them getting stuck together
+        """
+        # Find the distance between two balls
         distance = self.pos.distance_to(other.pos)
         if distance <= self.radius + other.radius:
-            # print("collision!     ", self , other)
-
             # Normal vector
             normal = (other.pos - self.pos).normalize()
 
@@ -80,6 +96,7 @@ class Ball:
             other.vel = (v2n * normal + v2t * tangent) * config.ELASTICITY
 
             # Adjust positions to prevent overlap
+            # TODO: Reduce wiggle (Wiggle is cause by this code)
             overlap = 0.5 * (self.radius + other.radius - distance + 1)
             self.pos -= overlap * normal
             other.pos += overlap * normal
