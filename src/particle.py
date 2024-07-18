@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 
 import config
+import utils
 
 
 class Ball:
@@ -17,6 +18,7 @@ class Ball:
     def draw(self, screen):
        # Draw the circle on the screen
        pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), self.radius) 
+       utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
 
     def update(self):
         # Adding gravity factor to the y velocity on each update call
@@ -51,9 +53,8 @@ class Ball:
             self.pos.y = config.SCREEN_HEIGHT - self.radius
             self.vel.y *= -1
 
-    def collide(self, other):
+    def collide(self, other, screen):
         distance = self.pos.distance_to(other.pos)
         if distance <= self.radius + other.radius:
-            print("collision!")
-
-
+            print("collision!     ", self , other)
+            
