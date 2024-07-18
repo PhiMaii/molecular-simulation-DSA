@@ -51,3 +51,9 @@ class Ball:
             self.pos.y = config.SCREEN_HEIGHT - self.radius
             self.vel.y *= -1
 
+    def collide(self, other):
+        distance = self.pos.distance_to(other.pos)
+        if distance <= self.radius + other.radius:
+            print("collision!")
+
+

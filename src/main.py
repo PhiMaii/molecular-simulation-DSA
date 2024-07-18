@@ -30,7 +30,17 @@ def generateRandomBalls(num):
     return generated_balls
 
 
-balls = generateRandomBalls(config.NUM_BALLS)
+# balls = generateRandomBalls(config.NUM_BALLS)
+
+
+def generateTestBalls():
+    generated_balls = [
+        particle.Ball(pos=Vector2(100, 200), vel=Vector2(10, 0), radius=15, color=config.RED),
+        particle.Ball(pos= Vector2(config.SCREEN_WIDTH - 100, 200), vel=Vector2(-10, 0), radius= 15, color=config.GREEN)
+    ]
+    return generated_balls
+
+balls = generateTestBalls()
 
 
 # ---------------------------------------------------------------------------- #
@@ -45,7 +55,7 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 balls.clear()
-                balls.extend(generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
+                balls.extend(generateTestBalls()) # append DIDN'T work because only one array is accepted
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()

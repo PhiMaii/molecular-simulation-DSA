@@ -17,5 +17,5 @@ BLUE = (0, 0, 255)
 NUM_BALLS = 30
 
 # Physics setup
-GRAVITY = 0.2
+GRAVITY = 0
 FRICTION = 1 - 0.005
