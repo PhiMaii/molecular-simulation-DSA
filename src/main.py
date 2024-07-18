@@ -29,6 +29,8 @@ else:
 #                                   Main loop                                  #
 # ---------------------------------------------------------------------------- #
 running = True
+paused = False
+
 while running:
     # ------------------------------ Event listeners ----------------------------- #
     for event in pygame.event.get():
@@ -42,24 +44,33 @@ while running:
                 # Delete all balls and generate new ones (random)
                 balls.clear()
                 balls.extend(utils.generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
+            if event.key == pygame.K_p:
+                if not paused:
+                    paused = True
+                else:
+                    paused = False
+                print(paused)
         # Mouse button pressed event
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # Left-click pressed
             if event.button == 1:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(2, 15), vel=Vector2(80,40), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=5 , radius=20, vel=Vector2(0,0), color=config.BLUE))
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
     screen.fill(config.WHITE)
 
+    dt = clock.get_time() / config.TIME_FACTOR
+
     # Iterate through each ball and first update, then check for collisions and then draw it
     for i, ball in enumerate(balls):
-        ball.update()
+        ball.update(dt)
         for j in range(i + 1, len(balls)):
             ball.collide(balls[j])
         ball.draw(screen)
+
 
     # FPS counter display
     fps = int(clock.get_fps())

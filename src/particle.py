@@ -6,7 +6,7 @@ import utils
 
 
 class Ball:
-    def __init__(self, pos: Vector2, vel: Vector2, radius: int, color: tuple):
+    def __init__(self, pos: Vector2, vel: Vector2, mass: int, radius: int, color: tuple):
         # Initialise class variables
         
         self.radius = radius
@@ -14,6 +14,12 @@ class Ball:
 
         self.pos = pos
         self.vel = vel
+        self.acc = Vector2(0, 0)
+        self.mass = mass
+
+    def apply_force(self, force):
+        # Newton's second law: F = m * a => a = F / m
+        self.acc += force / self.mass
 
     def draw(self, screen: pygame.surface):
         """
@@ -25,20 +31,20 @@ class Ball:
         if config.DEBUG_MODE:
             utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
 
-    def update(self):
+    def update(self, dt):
         """
-        Updates the possition of the ball by adding the current velocity to the 
-        position and adding gravity
+        Updates the possition of the ball
         """
-        # Adding gravity factor to the y velocity on each update call
-        self.vel.y += config.GRAVITY
+        # Apply gravity force
+        gravity_force = Vector2(0, config.GRAVITY * self.mass)
+        self.apply_force(gravity_force)
 
-        # Multiplying both velocities by the friction coefficient
-        self.vel.y *= config.FRICTION
-        self.vel.x *= config.FRICTION
+        # Update velocity and position using the current acceleration
+        self.vel += self.acc * dt
+        self.pos += self.vel * dt
 
-        # Adding the current velocity to the position of the corresponding axis
-        self.pos+=self.vel
+        # Reset acceleration after each update
+        self.acc = Vector2(0, 0)
 
         self.checkWallCollision()
 
@@ -69,34 +75,29 @@ class Ball:
             self.vel.y *= -1
 
     def collide(self, other: 'Ball'):
-        """
-        Checks for collisions between two balls an resolves them by using some vector math. 
-        Moves both balls in opposite directions to prevent them getting stuck together
-        """
-        # Find the distance between two balls
+        # Calculate the distance between the two balls
         distance = self.pos.distance_to(other.pos)
-        if distance <= self.radius + other.radius:
-            # Normal vector
-            normal = (other.pos - self.pos).normalize()
 
-            # Tangential vector
-            tangent = Vector2(-normal.y, normal.x)
+        if (not distance < self.radius + other.radius):
+            return
+        
+        # Calculate the normal and tangent vectors
+        normal = other.pos - self.pos
+        normal = normal.normalize()
+        tangent = Vector2(-normal.y, normal.x)
 
-            # Decomposing velocities
-            v1n = normal.dot(self.vel)
-            v1t = tangent.dot(self.vel)
-            v2n = normal.dot(other.vel)
-            v2t = tangent.dot(other.vel)
+        # Decompose velocities into normal and tangential components
+        v1_normal = normal.dot(self.vel)
+        v2_normal = normal.dot(other.vel)
+        v1_tangent = tangent.dot(self.vel)
+        v2_tangent = tangent.dot(other.vel)
 
-            # Swap normal components
-            v1n, v2n = v2n, v1n
+        # Calculate new normal velocities after collision
+        v1_normal_new = (v1_normal * (self.mass - other.mass) + 2 * other.mass * v2_normal) / (self.mass + other.mass)
+        v2_normal_new = (v2_normal * (other.mass - self.mass) + 2 * self.mass * v1_normal) / (self.mass + other.mass)
 
-            # Recompose velocities
-            self.vel = (v1n * normal + v1t * tangent) * config.ELASTICITY
-            other.vel = (v2n * normal + v2t * tangent) * config.ELASTICITY
+        # Convert scalar normal and tangential velocities into vectors
+        self.vel = v1_normal_new * normal + v1_tangent * tangent
+        other.vel = v2_normal_new * normal + v2_tangent * tangent
 
-            # Adjust positions to prevent overlap
-            # TODO: Reduce wiggle (Wiggle is cause by this code)
-            overlap = 0.5 * (self.radius + other.radius - distance + 1)
-            self.pos -= overlap * normal
-            other.pos += overlap * normal
+        print(self.vel)
