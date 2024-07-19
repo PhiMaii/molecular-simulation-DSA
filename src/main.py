@@ -77,7 +77,7 @@ while running:
 
     dt = time.time() - last_time
     last_time = time.time()
-    print(dt)
+    # print(dt)
 
     if(paused):
         for ball in balls:
