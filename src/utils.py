@@ -35,3 +35,16 @@ def generateTestBalls():
         particle.Ball(pos= Vector2(config.SCREEN_WIDTH - 100, 200), vel=Vector2(-10, 0), mass=1, radius= 15, color=config.GREEN)
     ]
     return generated_balls
+
+def generateGasParticles():
+    generated_balls = []
+    for _ in range(config.NUM_BALLS):
+        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50))
+        vel = Vector2(random.randint(-20, 20), random.randint(-20, 20))
+        mass = 1
+        color = config.RED
+
+        generated_ball = particle.Ball(vel=vel, pos=pos, radius=5, mass=mass, color=color)
+
+        generated_balls.append(generated_ball)
+    return generated_balls

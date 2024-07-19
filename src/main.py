@@ -24,7 +24,8 @@ font = pygame.font.SysFont(None, 30)
 if config.DEBUG_MODE:
     balls = utils.generateTestBalls()
 else:
-    balls = utils.generateRandomBalls(config.NUM_BALLS)
+    # balls = utils.generateRandomBalls(config.NUM_BALLS)
+    balls = utils.generateGasParticles()
 
 # ---------------------------------------------------------------------------- #
 #                                   Main loop                                  #
