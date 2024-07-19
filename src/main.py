@@ -1,6 +1,7 @@
 # ---------------------------------- Imports --------------------------------- #
 import pygame
 from pygame import Vector2
+import pygame_gui
 
 import sys
 import random
@@ -9,12 +10,17 @@ import time
 import particle
 import config
 import utils
+from ui import GUI
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
 pygame.init()
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('Particle Simulation')
+
+# UI manager setup
+manager = pygame_gui.UIManager((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+gui = GUI(manager)
 
 # Setup of the FPS counter
 clock = pygame.time.Clock()
@@ -70,6 +76,9 @@ while running:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
 
+        gui.process_events(event)
+
+
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
@@ -78,6 +87,8 @@ while running:
     dt = time.time() - last_time
     last_time = time.time()
     # print(dt)
+
+    gui.update(dt)
 
     if(paused):
         for ball in balls:
@@ -90,6 +101,8 @@ while running:
             for j in range(i + 1, len(balls)):
                 ball.collide(balls[j])
             ball.draw(screen)
+
+    gui.draw(screen)
 
 
     # FPS counter display

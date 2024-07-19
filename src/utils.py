@@ -21,7 +21,7 @@ def calcImpulse (m1, v1, m2, v2):
 def generateRandomBalls(num: int):
     generated_balls= []
     for i in range(num):
-        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
+        pos = Vector2(random.randint(50, config.SIMULATION_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
         vel = Vector2(0)
         mass = 1
         generated_ball = particle.Ball(pos, vel, mass, random.randint(config.BALL_SIZE_RANGE[0], config.BALL_SIZE_RANGE[1]), config.RED)
@@ -32,14 +32,14 @@ def generateRandomBalls(num: int):
 def generateTestBalls():
     generated_balls = [
         particle.Ball(pos=Vector2(100, 200), mass=1, vel=Vector2(15, 0), radius=15, color=config.RED),
-        particle.Ball(pos= Vector2(config.SCREEN_WIDTH - 100, 200), vel=Vector2(0, 0), mass=1, radius= 15, color=config.GREEN)
+        particle.Ball(pos= Vector2(config.SIMULATION_WIDTH - 100, 200), vel=Vector2(0, 0), mass=1, radius= 15, color=config.GREEN)
     ]
     return generated_balls
 
 def generateGasParticles():
     generated_balls = []
     for _ in range(config.NUM_BALLS):
-        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50))
+        pos = Vector2(random.randint(50, config.SIMULATION_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50))
         # vel = Vector2(random.randint(-20, 20), random.randint(-20, 20))
         random_vels = [15, -15]
         vel = Vector2(random.choice(random_vels), random.choice(random_vels))

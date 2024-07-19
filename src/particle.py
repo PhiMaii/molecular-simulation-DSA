@@ -62,8 +62,8 @@ class Ball:
             self.vel.x *= -1
 
         # Right side
-        elif self.pos.x + self.radius > config.SCREEN_WIDTH:
-            self.pos.x = config.SCREEN_WIDTH - self.radius
+        elif self.pos.x + self.radius > config.SIMULATION_WIDTH:
+            self.pos.x = config.SIMULATION_WIDTH - self.radius
             self.vel.x *= -1
 
         # Top side
