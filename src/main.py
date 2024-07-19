@@ -59,10 +59,10 @@ while running:
             if event.button == 1:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=50 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=15 , radius=20, vel=Vector2(0,0), color=config.BLUE))
             elif event.button == 3:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
 
 
     # ------------------------------- Update screen ------------------------------ #

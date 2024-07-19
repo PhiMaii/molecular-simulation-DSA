@@ -5,9 +5,9 @@ DEBUG_MODE = False
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+# Simulation settings
 MAX_FPS = 120
 TIME_FACTOR = 15
-# TICK_SPEED = 1/20
 
 # Color setup
 WHITE = (255, 255, 255)
@@ -18,8 +18,8 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 # Particle setup
-NUM_BALLS = 100
-BALL_SIZE_RANGE = [15, 30]
+NUM_BALLS = 60
+BALL_SIZE_RANGE = [15, 25]
 
 # Physics setup
 GRAVITY = 9.81
