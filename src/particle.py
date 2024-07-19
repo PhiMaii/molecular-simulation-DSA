@@ -40,8 +40,8 @@ class Ball:
         self.apply_force(gravity_force)
 
         # Update velocity and position using the current acceleration
-        self.vel += self.acc * dt
-        self.pos += self.vel * dt
+        self.vel += self.acc * dt * config.TIME_FACTOR
+        self.pos += self.vel * dt * config.TIME_FACTOR
 
         self.vel *= config.FRICTION
 

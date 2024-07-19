@@ -4,6 +4,7 @@ from pygame import Vector2
 
 import sys
 import random
+import time
 
 import particle
 import config
@@ -31,7 +32,7 @@ else:
 running = True
 paused = False
 
-last_time = pygame.time.get_ticks()
+last_time = time.time()
 
 while running:
     # ------------------------------ Event listeners ----------------------------- #
@@ -70,9 +71,9 @@ while running:
 
     # dt = clock.get_time() / config.TIME_FACTOR
 
-    current_time = pygame.time.get_ticks()
-    dt = (current_time - last_time) / config.TIME_FACTOR # Convert milliseconds to seconds
-    last_time = current_time
+    dt = time.time() - last_time
+    last_time = time.time()
+    print(dt)
 
     # print(dt)
 
