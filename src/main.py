@@ -31,7 +31,9 @@ else:
 #                                   Main loop                                  #
 # ---------------------------------------------------------------------------- #
 running = True
+
 paused = False
+single_step = False
 
 last_time = time.time()
 
@@ -54,6 +56,9 @@ while running:
                 else:
                     paused = False
                 print(paused)
+            if event.key == pygame.K_SPACE:
+                single_step = not single_step
+                
         # Mouse button pressed event
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # Left-click pressed
@@ -70,20 +75,21 @@ while running:
     # Erase the screen
     screen.fill(config.WHITE)
 
-    # dt = clock.get_time() / config.TIME_FACTOR
-
     dt = time.time() - last_time
     last_time = time.time()
     print(dt)
 
-    # print(dt)
-
-    # Iterate through each ball and first update, then check for collisions and then draw it
-    for i, ball in enumerate(balls):
-        ball.update(dt)
-        for j in range(i + 1, len(balls)):
-            ball.collide(balls[j])
-        ball.draw(screen)
+    if(paused):
+        for ball in balls:
+            ball.draw(screen)
+    
+    elif(not paused):
+        # Iterate through each ball and first update, then check for collisions and then draw it
+        for i, ball in enumerate(balls):
+            ball.update(dt)
+            for j in range(i + 1, len(balls)):
+                ball.collide(balls[j])
+            ball.draw(screen)
 
 
     # FPS counter display
