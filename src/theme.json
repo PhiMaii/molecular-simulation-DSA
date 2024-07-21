@@ -1,0 +1,13 @@
+{
+  "label": {
+    "colours": {
+      "normal_text": "#FFFFFF"
+    },
+    "font": {
+      "name": "fira_code",
+      "size": 24,
+      "bold": true,
+      "italic": false
+    }
+  }
+}

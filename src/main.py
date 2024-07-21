@@ -6,11 +6,26 @@ import pygame_gui
 import sys
 import random
 import time
+import os
 
 import particle
 import config
 import utils
 from ui import GUI
+
+custom_theme = {
+    "label": {
+        "colours": {
+            "normal_text": "#ff0000"
+        },
+        "font": {
+            "name": "fira_code",
+            "size": 24,
+            "bold": True,
+            "italic": False
+        }
+    }
+}
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
@@ -20,6 +35,7 @@ pygame.display.set_caption('Particle Simulation')
 
 # UI manager setup
 manager = pygame_gui.UIManager((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+manager.ui_theme.load_theme(custom_theme)
 gui = GUI(manager)
 
 # Setup of the FPS counter
@@ -39,6 +55,9 @@ else:
 running = True
 
 single_step = False
+
+max_vel_ball = balls[0]
+min_vel_ball = balls[0]
 
 last_time = time.time()
 
@@ -80,6 +99,9 @@ while running:
 
     config.temperature = gui.temperature_slider.current_value
 
+    gui.max_speed_label.set_text(f"Max Particle Speed: {round(max_vel_ball.vel.length(), 2)}")
+    gui.min_speed_label.set_text(f"Min Particle Speed: {round(min_vel_ball.vel.length(), 2)}")
+
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
     screen.fill(config.WHITE)
@@ -102,6 +124,12 @@ while running:
             for j in range(i + 1, len(balls)):
                 ball.collide(balls[j])
             ball.draw(screen)
+
+            if ball.vel.length() > max_vel_ball.vel.length():
+                max_vel_ball = ball
+                # print("new max vel")
+            elif ball.vel.length() < min_vel_ball.vel.length():
+                min_vel_ball = ball
 
     gui.draw(screen)
 

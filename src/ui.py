@@ -45,6 +45,20 @@ class GUI:
             manager=self.manager
         )
 
+        # particle details
+
+        self.max_speed_label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 400), (config.MENU_WIDTH - 100, 30)),
+            text='Max Particle Speed: ',
+            manager=self.manager,   
+        )
+
+        self.min_speed_label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 440), (config.MENU_WIDTH - 100, 30)),
+            text='Min Particle Speed: ',
+            manager=self.manager,   
+        )
+
     def process_events(self, event:pygame_gui.elements):
         self.manager.process_events(event)
 
@@ -60,6 +74,9 @@ class GUI:
                 from main import balls
                 balls.clear()
                 balls.extend(utils.generateGasParticles())
+
+                self.max_speed_label.set_text("fasfd")
+                self.min_speed_label.set_text("fasdf")
 
 
 
