@@ -27,4 +27,9 @@ BALL_SIZE_RANGE = [15, 25]
 # Physics setup
 GRAVITY = 0
 FRICTION = 1
+temperature = 1
+
+
+# ------------------------------ State Variables ----------------------------- #
+paused = False
 

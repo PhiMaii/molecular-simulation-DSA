@@ -38,7 +38,6 @@ else:
 # ---------------------------------------------------------------------------- #
 running = True
 
-paused = False
 single_step = False
 
 last_time = time.time()
@@ -57,11 +56,11 @@ while running:
                 balls.clear()
                 balls.extend(utils.generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
             if event.key == pygame.K_p:
-                if not paused:
-                    paused = True
+                if not config.paused:
+                    config.paused = True
                 else:
-                    paused = False
-                print(paused)
+                    config.paused = False
+                print(config.paused)
             if event.key == pygame.K_SPACE:
                 single_step = not single_step
                 
@@ -71,14 +70,15 @@ while running:
             if event.button == 1:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=15 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+                # balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=15 , radius=20, vel=Vector2(0,0), color=config.BLUE))
             elif event.button == 3:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
+                # balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
 
         gui.process_events(event)
 
 
+    config.temperature = gui.temperature_slider.current_value
 
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
@@ -88,13 +88,14 @@ while running:
     last_time = time.time()
     # print(dt)
 
+    pygame.draw.rect(screen, (225, 225, 225), (config.SIMULATION_WIDTH, 0, config.MENU_WIDTH, config.SCREEN_HEIGHT))
     gui.update(dt)
 
-    if(paused):
+    if(config.paused):
         for ball in balls:
             ball.draw(screen)
     
-    elif(not paused):
+    elif(not config.paused):
         # Iterate through each ball and first update, then check for collisions and then draw it
         for i, ball in enumerate(balls):
             ball.update(dt)

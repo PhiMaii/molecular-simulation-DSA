@@ -40,9 +40,9 @@ def generateGasParticles():
     generated_balls = []
     for _ in range(config.NUM_BALLS):
         pos = Vector2(random.randint(50, config.SIMULATION_WIDTH - 50), random.randint(50, config.SCREEN_HEIGHT - 50))
-        # vel = Vector2(random.randint(-20, 20), random.randint(-20, 20))
+        # vel = Vector2(random.randint(-15, 15) * config.temperature, random.randint(-15, 15) * config.temperature)
         random_vels = [15, -15]
-        vel = Vector2(random.choice(random_vels), random.choice(random_vels))
+        vel = Vector2(random.choice(random_vels) * config.temperature, random.choice(random_vels) * config.temperature)
         mass = 1
         color = config.RED
 
