@@ -7,25 +7,14 @@ import sys
 import random
 import time
 import os
+import json
 
 import particle
 import config
 import utils
 from ui import GUI
 
-custom_theme = {
-    "label": {
-        "colours": {
-            "normal_text": "#ff0000"
-        },
-        "font": {
-            "name": "fira_code",
-            "size": 24,
-            "bold": True,
-            "italic": False
-        }
-    }
-}
+print(os.get)
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
@@ -35,7 +24,7 @@ pygame.display.set_caption('Particle Simulation')
 
 # UI manager setup
 manager = pygame_gui.UIManager((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
-manager.ui_theme.load_theme(custom_theme)
+manager.ui_theme.load_theme('theme.json')
 gui = GUI(manager)
 
 # Setup of the FPS counter

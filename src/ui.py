@@ -16,7 +16,7 @@ class GUI:
         # Slider
         self.slider_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 20), (config.MENU_WIDTH - 100, 30)),
-            text="Slider",
+            text="Temperature",
             manager=self.manager
         )
         self.temperature_slider = pygame_gui.elements.UIHorizontalSlider(
@@ -29,7 +29,7 @@ class GUI:
         # Pause
         self.pause_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 220), (config.MENU_WIDTH - 100, 30)),
-            text='Pause Button',
+            text='Pause/Reset',
             manager=self.manager
         )
         self.pause_button = pygame_gui.elements.UIButton(
@@ -37,7 +37,6 @@ class GUI:
             text='Pause',
             manager=self.manager
         )
-
         # Reset button
         self.reset_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 300), (config.MENU_WIDTH - 100, 40)),
@@ -54,9 +53,17 @@ class GUI:
         )
 
         self.min_speed_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 440), (config.MENU_WIDTH - 100, 30)),
+            relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 440), (config.MENU_WIDTH - 100, 80)),
             text='Min Particle Speed: ',
             manager=self.manager,   
+        )
+
+        # ball size
+        self.particle_size = pygame_gui.elements.UIHorizontalSlider(
+            relative_rect=pygame.Rect((config.SIMULATION_WIDTH + 50, 100), (config.MENU_WIDTH - 100, 30)),
+            start_value=5.0,
+            value_range=(1, 25),
+            manager=self.manager
         )
 
     def process_events(self, event:pygame_gui.elements):
