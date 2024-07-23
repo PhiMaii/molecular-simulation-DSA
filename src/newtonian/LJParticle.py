@@ -11,6 +11,7 @@ class LJParticle:
         self.mass = mass
         self.radius = radius
         self.color = color
+        self.ekin = 0.5*self.mass*self.vel.magnitude()**2
         self.force = Vector2(0)
 
     # drawing the particle
@@ -38,10 +39,8 @@ class LJParticle:
         self.accel = self.force/self.mass
         self.vel += self.accel
         self.pos+=self.vel*dt
-        
+        self.ekin = 0.5*self.mass*self.vel.magnitude()**2
         self.force = Vector2(0)
-    
-    
     
     def applyforce(self,f:Vector2):
         self.force+=f

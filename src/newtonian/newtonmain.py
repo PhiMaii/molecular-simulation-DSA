@@ -36,7 +36,7 @@ def initparts():
     #parts.append(argon3)
     for i in range(3):
         for j in range(3):
-            argon=LJParticle(Vector2(0.38+j*0.38,0.38+i*0.38),Vector2(7.489e+11,0).rotate(random.randint(0,360)),39.948*newtonconfig.U,0.05,newtonconfig.BLACK)
+            argon=LJParticle(Vector2(0.38+j*0.38,0.38+i*0.38),Vector2(0,0).rotate(random.randint(0,360)),39.948,0.19,newtonconfig.BLACK)
             parts.append(argon)
 
 
@@ -64,10 +64,10 @@ while running:
         parts[i].draw(screen)
     
     ekin = newtonphysics.getKineticEnergy(parts)
-    print(ekin)
-    print(newtonphysics.calculateTemperature(ekin,parts))
+    print(parts[0].vel)
+    
     time+=dt
 
-    fps_text = font.render(f"Time: {time}", True, newtonconfig.BLACK)
+    fps_text = font.render(f"Time: {time}"+"ns", True, newtonconfig.BLACK)
     screen.blit(fps_text, (10, 10))
     pygame.display.flip()
