@@ -30,7 +30,7 @@ ekin  = 0
 def initparts():
     for i in range(10):
         for j in range(10):
-            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(1,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK)
+            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK)
             parts.append(argon)
 
 
