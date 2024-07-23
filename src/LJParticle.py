@@ -1,7 +1,7 @@
 import pygame
 from pygame import Vector2
 
-import newtonconfig
+import config
 
 class LJParticle:
     # initializing values
@@ -16,20 +16,20 @@ class LJParticle:
 
     # drawing the particle
     def draw(self, screen:pygame.display):
-        pygame.draw.circle(screen,self.color,self.pos*newtonconfig.SCR_ZOOM,self.radius*newtonconfig.SCR_ZOOM)
+        pygame.draw.circle(screen,self.color,self.pos*config.SCR_ZOOM,self.radius*config.SCR_ZOOM)
 
     def checkcollisions(self):
         if(self.pos.x<self.radius):
             self.pos.x=self.radius
             self.vel.x*=-1
-        elif(self.pos.x>newtonconfig.SCR_WIDTH-self.radius):
-            self.pos.x = newtonconfig.SCR_WIDTH-self.radius
+        elif(self.pos.x>config.SCR_WIDTH-self.radius):
+            self.pos.x = config.SCR_WIDTH-self.radius
             self.vel.x*=-1
         if(self.pos.y<self.radius):
             self.pos.y=self.radius
             self.vel.y*=-1
-        elif(self.pos.y>newtonconfig.SCR_HEIGHT-self.radius):
-            self.pos.y = newtonconfig.SCR_HEIGHT-self.radius
+        elif(self.pos.y>config.SCR_HEIGHT-self.radius):
+            self.pos.y = config.SCR_HEIGHT-self.radius
             self.vel.y*=-1
         
 

@@ -1,21 +1,22 @@
-# Window setup
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+# Size of the volume in nm
+SCR_WIDTH=2
+SCR_HEIGHT=2
 
-MAX_FPS = 60
+SCR_ZOOM = 240
 
-# Color setup
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+#COLORS
+BLACK=(0,0,0)
+WHITE=(255,255,255)
+RED=(255,0,0)
+BLUE=(0,0,255)
+GREEN=(0,255,0)
 
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
+# Physics constants
+G =9.81
 
 
-# Particle setup
-NUM_BALLS = 30
+# This is the factor the time is slowed -> 0.1 is 10 times slower than normal time
+TIMEFACTOR = 1
+# The unit of time is nanoseconds (10^-9 s)
+TIMESTEP =1*10**-6
 
-# Physics setup
-GRAVITY = 0.2
-FRICTION = 1 - 0.005

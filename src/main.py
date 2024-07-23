@@ -1,76 +1,70 @@
-# ---------------------------------- Imports --------------------------------- #
 import pygame
 from pygame import Vector2
 
-import sys
-import random
-
-import particle
+import utils
 import config
+import LJParticle
+from LJParticle import LJParticle
+import physics
+import random
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
 pygame.init()
-screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+screen = pygame.display.set_mode((config.SCR_WIDTH*config.SCR_ZOOM, config.SCR_HEIGHT*config.SCR_ZOOM))
 pygame.display.set_caption('Particle Simulation')
 
 # Setup of the FPS counter
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 30)
 
-# ------------------------------ Utility classes ----------------------------- #
-# Function for generating a given amount of randomly placed balls
-def generateRandomBalls(num):
-    generated_balls= []
-    for i in range(num):
-        pos = Vector2(random.randint(50, config.SCREEN_WIDTH - 50),random.randint(50, config.SCREEN_HEIGHT - 50))
-        vel = Vector2(0)
-        generated_ball = particle.Ball(pos, vel, random.randint(5, 25), config.RED)
-        generated_balls.append(generated_ball)
-    return generated_balls
-
-
-balls = generateRandomBalls(config.NUM_BALLS)
-
-
-# ---------------------------------------------------------------------------- #
-#                                   Main loop                                  #
-# ---------------------------------------------------------------------------- #
+# clock and time
+clock = pygame.time.Clock()
+time = 0
+dt=config.TIMESTEP
 running = True
+
+parts = []
+
+ekin  = 0
+def initparts():
+    for i in range(10):
+        for j in range(10):
+            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,config.BLACK)
+            parts.append(argon)
+
+
+initparts()
+print(config.SCR_HEIGHT*config.SCR_ZOOM)
+
+
+interactions = utils.getInteractions(len(parts))
 while running:
-    # ------------------------------ Event listeners ----------------------------- #
+
+    # Set backgroundcolor
+    screen.fill(config.WHITE)
+
+    # Eventlistener for inputs
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
-                balls.clear()
-                balls.extend(generateRandomBalls(config.NUM_BALLS)) # append DIDN'T work because only one array is accepted
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-                balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y), radius=random.randint(5, 25), vel=Vector2(20,5), color=config.BLUE))
+    # Updating
+    for i in range(len(interactions)):
+        physics.lennardJones(parts[interactions[i][0]],parts[interactions[i][1]],dt)
+    
+    # applying forces and rendering particles
+    for i in range(len(parts)):
+        parts[i].update(dt)
+        parts[i].draw(screen)
+    
+    ekin = physics.getKineticEnergy(parts)
+    ekin/=6.022*10**26
+    
+    print("temp:",physics.calculateTemperature(ekin,parts)-273,"°C")
 
-    # ------------------------------- Update screen ------------------------------ #
-    # Erase the screen
-    screen.fill(config.WHITE)
-
-    # Every ball gets updated and then drawn
-    for ball in balls:
-        ball.update()
-        ball.draw(screen) 
-
-    # FPS counter display
-    fps = int(clock.get_fps())
-    fps_text = font.render(f"FPS: {fps}", True, config.BLACK)
-    screen.blit(fps_text, (10, 10))
-
-    pygame.display.flip()
-
-    # FPS limit
-    clock.tick(config.MAX_FPS)
+    time+=config.TIMESTEP
     
 
-# -------------------------------- Exit window ------------------------------- #
-pygame.quit()
-sys.exit()
+    fps_text = font.render(f"Time: {time}"+"ns", True, config.BLACK)
+    screen.blit(fps_text, (10, 10))
+    pygame.display.flip()

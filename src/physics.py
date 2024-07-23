@@ -3,7 +3,7 @@ from LJParticle import LJParticle
 
 import pygame
 
-import newtonconfig
+import config
 
 o=0.34
 eps=(0.0104*6.242*10**18)/(6.022*10**26)
