@@ -6,7 +6,7 @@ import pygame
 import newtonconfig
 
 o=0.34
-eps=0.01
+eps=(0.0104*6.242*10**18)/(6.022*10**26)
 
 def lennardJones(part1:LJParticle, part2:LJParticle,dt):
     rvec = part1.pos-part2.pos

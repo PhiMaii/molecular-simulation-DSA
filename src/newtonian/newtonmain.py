@@ -28,15 +28,9 @@ parts = []
 
 ekin  = 0
 def initparts():
-    #argon1=LJParticle(Vector2(10.38,10),Vector2(0),39.948*newtonconfig.U,0.1,newtonconfig.BLACK)
-    #argon2=LJParticle(Vector2(10,10),Vector2(0),39.948*newtonconfig.U,0.1,newtonconfig.BLACK)
-    #argon3=LJParticle(Vector2(10,10.38),Vector2(0),39.948*newtonconfig.U,0.1,newtonconfig.BLACK)
-    #parts.append(argon1)
-    #parts.append(argon2)
-    #parts.append(argon3)
-    for i in range(3):
-        for j in range(3):
-            argon=LJParticle(Vector2(0.38+j*0.38,0.38+i*0.38),Vector2(0,0).rotate(random.randint(0,360)),39.948,0.19,newtonconfig.BLACK)
+    for i in range(10):
+        for j in range(10):
+            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(1,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK)
             parts.append(argon)
 
 
@@ -64,9 +58,12 @@ while running:
         parts[i].draw(screen)
     
     ekin = newtonphysics.getKineticEnergy(parts)
-    print(parts[0].vel)
+    ekin/=6.022*10**26
     
-    time+=dt
+    print("temp:",newtonphysics.calculateTemperature(ekin,parts)-273,"°C")
+
+    time+=newtonconfig.TIMESTEP
+    
 
     fps_text = font.render(f"Time: {time}"+"ns", True, newtonconfig.BLACK)
     screen.blit(fps_text, (10, 10))
