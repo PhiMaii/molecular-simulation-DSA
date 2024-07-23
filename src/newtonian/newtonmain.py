@@ -26,9 +26,9 @@ running = True
 parts = []
 
 def initparts():
-    for i in range(5):
-        for j in range(5):
-            parts.append(LJParticle(Vector2(50+i*10,50+j*10),Vector2(400,0).rotate(random.randint(0,360)),0.001,5,newtonconfig.GREEN))
+    for i in range(10)e:
+        for j in range(10):
+            parts.append(LJParticle(Vector2(50+i*10,50+j*10),Vector2(800,0).rotate(random.randint(0,360)),0.001,5,newtonconfig.GREEN))
 
 initparts()
 

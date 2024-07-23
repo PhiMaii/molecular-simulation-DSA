@@ -16,5 +16,5 @@ G =9.81
 
 # This is the factor the time is slowed -> 0.1 is 10 times slower than normal time
 TIMEFACTOR = 1
-TIMESTEP =10**-3
+TIMESTEP =10**-4
 

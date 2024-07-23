@@ -20,6 +20,7 @@ class LJParticle:
     def checkcollisions(self):
         if(self.pos.x<self.radius):
             self.pos.x=self.radius
+            self.vel.x*=-1
         elif(self.pos.x>newtonconfig.SCR_WIDTH-self.radius):
             self.pos.x = newtonconfig.SCR_WIDTH-self.radius
             self.vel.x*=-1
