@@ -1,8 +1,8 @@
-# Pygame settings
-SCR_WIDTH=200
-SCR_HEIGHT=200
+# Size of the volume in nm
+SCR_WIDTH=2
+SCR_HEIGHT=2
 
-SCR_ZOOM = 4
+SCR_ZOOM = 120
 
 #COLORS
 BLACK=(0,0,0)
@@ -13,8 +13,9 @@ GREEN=(0,255,0)
 
 # Physics constants
 G =9.81
+U = 1.66053906892*10**-27
 
 # This is the factor the time is slowed -> 0.1 is 10 times slower than normal time
 TIMEFACTOR = 1
-TIMESTEP =10**-4
+TIMESTEP =1*10**-15
 

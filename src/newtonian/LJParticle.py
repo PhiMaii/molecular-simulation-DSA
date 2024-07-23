@@ -15,8 +15,8 @@ class LJParticle:
 
     # drawing the particle
     def draw(self, screen:pygame.display):
-        pygame.draw.circle(screen,self.color,self.pos,self.radius)
-    
+        pygame.draw.circle(screen,self.color,self.pos*newtonconfig.SCR_ZOOM,self.radius*newtonconfig.SCR_ZOOM)
+
     def checkcollisions(self):
         if(self.pos.x<self.radius):
             self.pos.x=self.radius
@@ -38,8 +38,8 @@ class LJParticle:
         self.accel = self.force/self.mass
         self.vel += self.accel
         self.pos+=self.vel*dt
+        
         self.force = Vector2(0)
-        print(self.vel.magnitude())
     
     
     
