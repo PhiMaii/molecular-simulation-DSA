@@ -4,19 +4,23 @@ from pygame import Vector2
 import newtonconfig
 
 class LJParticle:
+
     # initializing values
-    def __init__(self,pos:Vector2, vel:Vector2,mass:float,radius:int,color:tuple):
+    def __init__(self,pos:Vector2, vel:Vector2,mass:float,radius:int,color:tuple, bond):
         self.pos = pos
         self.vel = vel
         self.mass = mass
         self.radius = radius
         self.color = color
         self.ekin = 0.5*self.mass*self.vel.magnitude()**2
+        self.bond = bond
         self.force = Vector2(0)
 
     # drawing the particle
     def draw(self, screen:pygame.display):
         pygame.draw.circle(screen,self.color,self.pos*newtonconfig.SCR_ZOOM,self.radius*newtonconfig.SCR_ZOOM)
+        for i in range(len(self.bond)):
+            pygame.draw.line(screen,newtonconfig.GREEN,self.pos*newtonconfig.SCR_ZOOM,self.bond[i].pos*newtonconfig.SCR_ZOOM,3)
 
     def checkcollisions(self):
         if(self.pos.x<self.radius):

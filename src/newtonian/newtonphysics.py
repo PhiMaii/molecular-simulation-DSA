@@ -5,14 +5,17 @@ import pygame
 
 import newtonconfig
 
-o=0.34
-eps=(0.0104*6.242*10**18)/(6.022*10**26)
-
+o=0.265
+eps=(0.001499*6.242*10**18)/(6.022*10**26)
+s=0.062
 def lennardJones(part1:LJParticle, part2:LJParticle,dt):
     rvec = part1.pos-part2.pos
     r=rvec.magnitude()
     e = 4*eps*((o/r)**12-(o/r)**6)
     f = (24*eps*o**6*(r**6 - 2*o**6))/r**13
+    if part2 in part1.bond or part1 in part2.bond:
+        ds=s-r
+        f-=ds*10000
     part2.applyforce(rvec.normalize()*f)
     part1.applyforce(rvec.normalize()*-f)
     return f

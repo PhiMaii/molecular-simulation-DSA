@@ -29,11 +29,16 @@ parts = []
 ekin  = 0
 def initparts():
     for i in range(10):
-        for j in range(10):
-            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK)
-            parts.append(argon)
+        for j in range(5):
+            argon1=LJParticle(Vector2(0.1+i*0.1,0.1+0.2*j),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK,[])
 
+            argon2=LJParticle(Vector2(0.1+i*0.1,0.2+0.2*j),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,newtonconfig.BLACK,[argon1])
 
+            parts.append(argon2)
+            parts.append(argon1)
+    
+        
+    
 initparts()
 print(newtonconfig.SCR_HEIGHT*newtonconfig.SCR_ZOOM)
 
