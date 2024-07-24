@@ -30,7 +30,7 @@ ekin  = 0
 def initparts():
     for i in range(10):
         for j in range(10):
-            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(430,0).rotate(random.randint(0,360)),39.948,0.098,config.BLACK)
+            argon=LJParticle(Vector2(0.19+j*0.19,0.19+i*0.19),Vector2(0,0).rotate(random.randint(0,360)),39.948,0.05,config.BLACK)
             parts.append(argon)
 
 
@@ -50,7 +50,7 @@ while running:
             running = False
     # Updating
     for i in range(len(interactions)):
-        physics.lennardJones(parts[interactions[i][0]],parts[interactions[i][1]],dt)
+        physics.morsePotential(parts[interactions[i][0]],parts[interactions[i][1]],dt)
     
     # applying forces and rendering particles
     for i in range(len(parts)):

@@ -36,10 +36,14 @@ class LJParticle:
     # updating movement based on accumulated force from the previous frame
     def update(self,dt):
         self.checkcollisions()
+
         self.accel = self.force/self.mass
+
         self.vel += self.accel
         self.pos+=self.vel*dt
+
         self.ekin = 0.5*self.mass*self.vel.magnitude()**2
+        
         self.force = Vector2(0)
     
     def applyforce(self,f:Vector2):
