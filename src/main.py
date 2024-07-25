@@ -14,7 +14,6 @@ import config
 import utils
 from ui import GUI
 
-print(os.get)
 
 # ------------------------------- Window setup ------------------------------- #
 # Setup of the window: size and description
@@ -78,19 +77,17 @@ while running:
             if event.button == 1:
                 # Spawn a new ball at the mouse's coordinates
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                # balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=15 , radius=20, vel=Vector2(0,0), color=config.BLUE))
+                if mouse_x <= config.SIMULATION_WIDTH:
+                    balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=15 , radius=20, vel=Vector2(0,0), color=config.BLUE))
             elif event.button == 3:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                # balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
+                if mouse_x <= config.SIMULATION_WIDTH:
+                    balls.append(particle.Ball(pos=Vector2(mouse_x, mouse_y),mass=2 , radius=20, vel=Vector2(0,0), color=config.GREEN))
 
         gui.process_events(event)
 
 
-    config.temperature = gui.temperature_slider.current_value
-
-    gui.max_speed_label.set_text(f"Max Particle Speed: {round(max_vel_ball.vel.length(), 2)}")
-    gui.min_speed_label.set_text(f"Min Particle Speed: {round(min_vel_ball.vel.length(), 2)}")
-
+    
     # ------------------------------- Update screen ------------------------------ #
     # Erase the screen
     screen.fill(config.WHITE)
@@ -119,6 +116,10 @@ while running:
                 # print("new max vel")
             elif ball.vel.length() < min_vel_ball.vel.length():
                 min_vel_ball = ball
+
+    gui.max_speed_label.set_text(f"Max Particle Speed: {round(max_vel_ball.vel.length(), 2)}")
+    gui.min_speed_label.set_text(f"Min Particle Speed: {round(min_vel_ball.vel.length(), 2)}")
+
 
     gui.draw(screen)
 

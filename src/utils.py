@@ -46,7 +46,7 @@ def generateGasParticles():
         mass = 1
         color = config.RED
 
-        generated_ball = particle.Ball(vel=vel, pos=pos, radius=7, mass=mass, color=color)
+        generated_ball = particle.Ball(vel=vel, pos=pos, radius=config.ball_size, mass=mass, color=color)
 
         generated_balls.append(generated_ball)
     return generated_balls

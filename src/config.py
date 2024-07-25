@@ -1,5 +1,6 @@
 # DEBUG Mode
 DEBUG_MODE = False
+show_vels = False
 
 # Window setup
 SCREEN_WIDTH = 1200
@@ -23,6 +24,7 @@ BLUE = (0, 0, 255)
 # Particle setup
 NUM_BALLS = 60
 BALL_SIZE_RANGE = [15, 25]
+ball_size = 7
 
 # Physics setup
 GRAVITY = 0

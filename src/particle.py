@@ -28,7 +28,7 @@ class Ball:
         # Draw the circle on the screen
         pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), self.radius) 
 
-        if config.DEBUG_MODE:
+        if config.show_vels:
             utils.draw_vector(screen, self.pos, self.vel, config.BLACK)
 
     def update(self, dt):
