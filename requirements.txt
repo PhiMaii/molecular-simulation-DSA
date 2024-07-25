@@ -1,0 +1,10 @@
+asarPy==1.0.1
+Cython==0.29.37
+Mako==1.3.5
+Markdown==3.6
+MarkupSafe==2.1.5
+meson==1.3.2
+numpy==2.0.1
+pygame==2.6.0
+Pygments==2.18.0
+six==1.16.0
