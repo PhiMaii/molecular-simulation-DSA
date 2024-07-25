@@ -18,5 +18,5 @@ G =9.81
 # This is the factor the time is slowed -> 0.1 is 10 times slower than normal time
 TIMEFACTOR = 1
 # The unit of time is nanoseconds (10^-9 s)
-TIMESTEP =1*10**-6
+TIMESTEP =5*10**-6
 
